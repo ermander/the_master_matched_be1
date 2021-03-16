@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const authenticate = require("./authTools")
 const UserModel = require("../users/schema")
-
+const { basicAuthenticationMiddleware } = require("../middlewares/auth")
 
 // Login route
 router.post("/login", async (req, res) => {

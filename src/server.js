@@ -1,18 +1,20 @@
 const express = require("express")
 const cors = require("cors")
 const listOfEndpoint = require("express-list-endpoints")
-const dotenv = require("dotenv").config()
+const dotenv = require("dotenv")
 const mongoose = require("mongoose")
 
-// Routes
+// Importing the routes
 const login = require("./authentication/index")
 const cashbackBookmakers = require("./cashback_books(provvisorio)")
 
 const app = express()
 
+// Dotenv configuration
+dotenv.config()
+
 // Cors
 app.use(cors())
-
 
 // Server port 3002
 const port = process.env.PORT || 3004
@@ -26,12 +28,12 @@ app.use("/authentication", login)
 app.use("/cashback-bookmakers", cashbackBookmakers)
 
 // Preview of the current endpoints into the terminal 
-console.log(listOfEndpoint(app));
-console.log(process.env.MONGO_CONNECTION_STRING)
+console.log(listOfEndpoint(app))
+
 // MongoDB connection
 const MONGO_CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || 3004;
 mongoose
-  .connect("mongodb+srv://ermander:Pippotanto01@cluster0.4xisp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+  .connect(MONGO_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

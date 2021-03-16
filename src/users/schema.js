@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose")
+const bcrypt = require("bcrypt")
 
 const UserSchema = new Schema (
     {
@@ -17,6 +18,32 @@ const UserSchema = new Schema (
     },
     { timestamps: true }
 )
+
+// Checks if the credential are correct
+UserSchema.statics.findByEmailAndPassword = async (email, password) => {
+    // Checks if the user exists
+    const user = await UserModel.findOne({email: email})
+    // Do only if user exists
+    if(user){
+        const isMatch = await bcrypt.compare(password, user.password)
+        //Do only if the 2 password matches
+        if(isMatch) return user
+        else return null
+    }else{
+        return null
+    }
+}
+
+// Chiedere il significato di questa funzione
+UserSchema.pre("save", async function (next) {
+    const user = this
+    // Check if the password is modified
+    if (user.isModified("password")){
+        user.password = await bcrypt.hash(user.password, 10)
+    }
+    next()
+})
+
 
 const UserModel = model("users", UserSchema)
 module.exports = UserModel
