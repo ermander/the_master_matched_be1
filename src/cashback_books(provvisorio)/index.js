@@ -26,6 +26,7 @@ router.post("/post-new-bookmaker", async (req, res) => {
         }else{
             const newBookmaker = new cashbackBookmakerModel(req.body)
             await newBookmaker.save()
+            console.log(newBookmaker)
             res.status(200).send("Saved!")
         }
     } catch (error) {
