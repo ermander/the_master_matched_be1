@@ -1,12 +1,11 @@
 const express = require("express")
-const { findById } = require("./schema")
 const router = express.Router()
 const cashbackBookmakerModel = require("./schema")
-const mongoose = require("mongoose")
-mongoose.set('useFindAndModify', false)
+const mongoose = require("mongoose").set('useFindAndModify', false)
+const { jwt } = require("../middlewares/auth")
 
 //Fetch current avaiable cashback books
-router.get("/get-bookmakers", async (req, res) => {
+router.get("/get-bookmakers", jwt, async (req, res) => {
     try {
         const bookmakers = await cashbackBookmakerModel.find()
         if(!bookmakers) {

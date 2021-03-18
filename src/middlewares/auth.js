@@ -1,30 +1,27 @@
-const atob = require("atob")
 const UserModel = require("../users/schema")
+const { verifyJWT } = require("../authentication/authTools")
+// Middleware that verify if the validity of the jwt
+const jwtMiddleware = async (req, res, next) => {
+    try {
+        // Reading the token
+        const token = req.header("Authorization").replace("Bearer ", "")
+        console.log(token)
 
-// Basic authentication function
-const basicAuthenticationMiddleware = async (req, res, next) => {
-    // Checks if the header has the autthorization
-    if(!req.header.authorizazion){
-        const error = new Error("Authorizazion header missing!")
-        error.httpStatusCode = 401
-    }else{
-        // Getting the credentials
-        const credentials = req.header.authorizazion.split(" ")[1]
-        console.log(req.header.authorizazion.split(" ")[1])
-        const [email, password] = atob(credentials).split(":")
+        // Verifying the token
+        const decoded = await verifyJWT(token)
 
-        // Checks if the user exists
-        const user = await UserModel.findByEmailAndPassword(email, password)
-        console.log(user)
-
-        if(user) {
-            req.user = user
+        // Checking if the user exists
+        const user = await UserModel.findOne({_id: decoded._id})
+        
+        if(!user){
+            throw new Error("User not found")
         }else{
-            const error = new Error("Problems with credentials")
-            error.httpStatusCode = 400
-            next(error)
+            req.user = user
+            next()
         }
+    } catch (error) {
+       next(error)
     }
 }
 
-module.exports = { basicAuthenticationMiddleware }
+module.exports = { jwt: jwtMiddleware }
