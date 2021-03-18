@@ -22,7 +22,7 @@ const port = process.env.PORT || 3004
 app.use(express.json())
 
 // Login route
-app.use("/authentication", login)
+app.use("/users", login)
 
 // Cashbaks bookmakers
 app.use("/cashback-bookmakers", cashbackBookmakers)

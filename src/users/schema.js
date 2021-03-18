@@ -18,7 +18,7 @@ const UserSchema = new Schema (
     },
     { timestamps: true }
 )
-
+/*
 // Checks if the credential are correct
 UserSchema.statics.findByEmailAndPassword = async (email, password) => {
     // Checks if the user exists
@@ -43,6 +43,8 @@ UserSchema.pre("save", async function (next) {
     }
     next()
 })
+
+*/
 
 
 const UserModel = model("users", UserSchema)

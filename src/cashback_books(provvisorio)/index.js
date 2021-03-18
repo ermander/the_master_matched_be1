@@ -1,6 +1,9 @@
 const express = require("express")
+const { findById } = require("./schema")
 const router = express.Router()
 const cashbackBookmakerModel = require("./schema")
+const mongoose = require("mongoose")
+mongoose.set('useFindAndModify', false)
 
 //Fetch current avaiable cashback books
 router.get("/get-bookmakers", async (req, res) => {
@@ -8,6 +11,7 @@ router.get("/get-bookmakers", async (req, res) => {
         const bookmakers = await cashbackBookmakerModel.find()
         if(!bookmakers) {
             res.status(400).send("No bookmakers avaiable!")
+            console.log("ok")
         }
         res.status(200).send(bookmakers)
     } catch (error) {
@@ -29,6 +33,25 @@ router.post("/post-new-bookmaker", async (req, res) => {
             console.log(newBookmaker)
             res.status(200).send("Saved!")
         }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("An error occurred!")
+    }
+})
+
+// PUT (Modify) a a bookmaker
+router.put("/modify-bookmaker", async (req, res) => {
+    try {
+        await cashbackBookmakerModel.findByIdAndUpdate({
+            _id: req.body._id
+        },
+        {
+            name: req.body.name,
+            cashback: req.body.cashback
+        })
+        const prova = await cashbackBookmakerModel.findById({_id: req.body._id})
+        console.log(prova)
+        res.status(200).send("Modified!")
     } catch (error) {
         console.log(error)
         res.status(500).send("An error occurred!")
