@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+const { jwt } = require("../middlewares/auth")
 const { authenticate, checkRefreshToken } = require("./authTools")
 const UserModel = require("../users/schema")
 
@@ -10,7 +10,6 @@ router.post("/login", async (req, res, next) => {
     try {
         const { email, password } = req.body
         const user = await UserModel.findByCredentials(email, password)
-        console.log(user)
         // Generating and sendingthe token
         const tokens = await authenticate(user)
         res.status(200).send(tokens)

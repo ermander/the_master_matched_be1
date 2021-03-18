@@ -3,9 +3,9 @@ const { verifyJWT } = require("../authentication/authTools")
 // Middleware that verify if the validity of the jwt
 const jwtMiddleware = async (req, res, next) => {
     try {
-        // Reading the token
+
+        // Reading the token      
         const token = req.header("Authorization").replace("Bearer ", "")
-        console.log(token)
 
         // Verifying the token
         const decoded = await verifyJWT(token)

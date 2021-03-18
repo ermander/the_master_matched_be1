@@ -5,11 +5,12 @@ const UserModel = require("../users/schema")
 const authenticate = async (user) => {
     try {
         const newToken = await generateJWT({_id: user._id})
-        const refreshToken = await generateRefreshJWT({_id: user._id})
-        user.refreshTokens = user.refreshTokens.concat({token: refreshToken})
+        const newRefreshToken = await generateRefreshJWT({_id: user._id})
+        user.refreshTokens = user.refreshTokens.concat({token: newRefreshToken})
 
         user.save()
-        return { accessToken: newToken, refreshToken}
+        console.log(newToken, newRefreshToken + "oooooooooo")
+        return { accessToken: newToken, refreshToken: newRefreshToken}
     } catch (error) {
         console.log(error)
     }
@@ -27,7 +28,6 @@ const checkRefreshToken = async(oldRefreshToken) => {
     if(!user){
         throw new Error("User not found!")
     }
-    console.log(user)
     const currentRefreshToken = user.refreshTokens.find( token => token.token === oldRefreshToken )
 
     if(!currentRefreshToken){
