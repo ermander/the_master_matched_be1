@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 
 const UserSchema = new Schema (
     {
@@ -45,7 +45,7 @@ UserSchema.statics.findByCredentials = async (email, password) => {
 
 
 // Chiedere il significato di questa funzione
-/*
+
 UserSchema.pre("save", async function (next) {
     const user = this
     // Check if the password is modified
@@ -54,8 +54,6 @@ UserSchema.pre("save", async function (next) {
     }
     next()
 })
-
-*/
 
 
 const UserModel = model("users", UserSchema)
