@@ -6,7 +6,7 @@ const mongoose = require("mongoose")
 
 // Importing the routes
 const login = require("./authentication/index")
-const cashbackBookmakers = require("./cashback_books(provvisorio)")
+const cashbackBookmakers = require("./cashback_books")
 
 const app = express()
 
