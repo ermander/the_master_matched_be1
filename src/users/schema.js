@@ -28,7 +28,7 @@ const UserSchema = new Schema (
 )
 
 // Checks if the credential are correct
-UserSchema.statics.findByCredentials = async (email, password) => {
+UserSchema.statics.findByCredentials = async function (email, password){
     // Checks if the user exists
     const user = await UserModel.findOne({email: email})
     console.log(user + " user")
