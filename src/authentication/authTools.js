@@ -4,7 +4,6 @@ const UserModel = require("../users/schema")
 // Authenticate the user
 const authenticate = async (user) => {
     try {
-        console.log(user)
         const newToken = await generateJWT({_id: user._id})
         const newRefreshToken = await generateRefreshJWT({_id: user._id})
         user.refreshTokens = user.refreshTokens.concat({token: newRefreshToken})
