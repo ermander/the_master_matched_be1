@@ -9,6 +9,7 @@ const UserModel = require("../users/schema")
 router.post("/login", async (req, res, next) => {
     try {
         const { email, password } = req.body
+        console.log(email, password)
         const user = await UserModel.findByCredentials(email, password)
         // Generating and sendingthe token
         const tokens = await authenticate(user)
