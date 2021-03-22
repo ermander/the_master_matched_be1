@@ -38,7 +38,7 @@ UserSchema.statics.findByCredentials = async (email, password) => {
         console.log(isMatch)
         //Do only if the 2 password matches
         if(isMatch) return user
-        else return null
+        //else return null
     }else{
         return null
     }
