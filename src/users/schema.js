@@ -35,7 +35,7 @@ UserSchema.statics.findByCredentials = async (email, password) => {
     // Do only if user exists
     if(user){
         const isMatch = await bcrypt.compare(password, user.password)
-        
+        console.log(isMatch)
         //Do only if the 2 password matches
         if(isMatch) return user
         else return null
