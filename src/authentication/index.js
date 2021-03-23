@@ -33,9 +33,9 @@ router.post("/registration", async (req, res) => {
             res.status(400).send("This mail already exists!")
         }else{
             // Generating the salt
-            const salt = await bcrypt.genSalt()
+            //const salt = await bcrypt.genSalt()
             // Hashing the password
-            const hashedPassword = await bcrypt.hash(req.body.password, salt)
+            const hashedPassword = await bcrypt.hash(req.body.password, 10)
             // Replacing the password with the hashed one
             const rawUser = {
                 ...req.body,
