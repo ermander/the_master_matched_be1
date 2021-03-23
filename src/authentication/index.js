@@ -35,11 +35,11 @@ router.post("/registration", async (req, res) => {
             // Generating the salt
             //const salt = await bcrypt.genSalt()
             // Hashing the password
-            const hashedPassword = await bcrypt.hash(req.body.password, 10)
+            //const hashedPassword = await bcrypt.hash(req.body.password, 10)
             // Replacing the password with the hashed one
             const rawUser = {
                 ...req.body,
-                password: hashedPassword
+                //password: hashedPassword
             }
             const newUser = new UserModel(rawUser)
             await newUser.save()
