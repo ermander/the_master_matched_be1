@@ -7,6 +7,7 @@ const mongoose = require("mongoose")
 // Importing the routes
 const login = require("./authentication/index")
 const cashbackBookmakers = require("./cashback_books")
+const odds = require("./odds/index")
 
 const app = express()
 
@@ -20,6 +21,9 @@ app.use(cors())
 const port = process.env.PORT || 3004
 
 app.use(express.json())
+
+// Odds
+app.use("/odds", odds)
 
 // Login route
 app.use("/users", login)
