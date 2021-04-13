@@ -26,6 +26,7 @@ app.use(express.json())
 // Odds
 app.use("/odds", odds)
 
+// Odds from google
 app.use("/google-odds", googleOdds)
 
 // Login route
