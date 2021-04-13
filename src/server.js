@@ -8,6 +8,7 @@ const mongoose = require("mongoose")
 const login = require("./authentication/index")
 const cashbackBookmakers = require("./cashback_books")
 const odds = require("./odds/index")
+const googleOdds = require("./google/index")
 
 const app = express()
 
@@ -24,6 +25,8 @@ app.use(express.json())
 
 // Odds
 app.use("/odds", odds)
+
+app.use("/google-odds", googleOdds)
 
 // Login route
 app.use("/users", login)

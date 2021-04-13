@@ -26,39 +26,28 @@ const drive = google.drive({
 // Dutcher Odds
 router.get("/dutcher-odds", async (req, res) => {
     try {
-        
+        // Retrieve the folder
+        const response = await drive.files.list({
+            q: `"1y5m8t0H450NVJjacV2N6rumAC1L-T_9G" in parents`
+        })
+
+        // Filter the json file with the odds
+        const rawOdds = response.data.files.filter( odd => odd.name === "dutcherOdds.json")
+        const fileID = rawOdds[0].id
+
+        // Get the odds infoes
+        const odds = await drive.files.get({
+            fileId: fileID,
+            mimeType: "application/json",
+            alt: "media"
+        }).then(
+            response => response.data
+        )
+        res.status(200).send(odds)
     } catch (error) {
         console.log(error)
     }
 })
-const dutcherOdds = async (req, res) => {
-    try {
-        const odds = async () => {
-            // Retrieve the folder
-            const response = await drive.files.list({
-                q: `"1y5m8t0H450NVJjacV2N6rumAC1L-T_9G" in parents`
-            })
-
-            // Filter the json file with the odds
-            const rawOdds = response.data.files.filter( odd => odd.name === "dutcherOdds.json")
-            const fileID = rawOdds[0].id
-            // Get the odds infoes
-            const odds = await drive.files.get({
-                fileId: fileID,
-                mimeType: "application/json",
-                alt: "media"
-            })
-            .then(
-                response => response.data
-            )
-
-            res.status(200).send(odds.data)
-        }
-        console.log(odds)
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 // Downloading json with trimatcher's odds infoes
 const trimatcherOdds = async() => {
@@ -73,6 +62,4 @@ const trimatcherOdds = async() => {
     }
 }
 
-dutcherOdds()
-
-module.exports =  { dutcherOdds, trimatcherOdds }
+module.exports = router
