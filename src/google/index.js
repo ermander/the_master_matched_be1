@@ -15,7 +15,7 @@ const oauth2Client = new google.auth.OAuth2(
     REDIRECT_URI
 )
 
-oauth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
+oauth2Client.setCredentials({refresh_token: REFRESH_TOKEN, access_token: "ya29.a0AfH6SMCjQY5P82pmlDUNi7pS5xAgfpNOH2CSzCbc0_UMZGBuI6LERLDxX8F-1InWLOyzuCs4rEKjF3hGeczajFrYVz3mvIOH0h_CvRBJyY_hv4nQRGJbyeJuwtDhXhd3LSkD5Oo_zjshfleu6gQgdxoE3lpi"})
 
 // Create an istance of google drive
 const drive = google.drive({
