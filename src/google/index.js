@@ -21,8 +21,6 @@ const oauth2Client = new google.auth.OAuth2(
 
 oauth2Client.setCredentials({
   refresh_token: REFRESH_TOKEN,
-  access_token:
-    "ya29.a0AfH6SMCWK6YFTGWwIpMrW6OrHutBX2Uu6CQQP8Xp-WTvrOd_JjXNvhX17ZPIrUNLrAKuXxhjPW395fXqQypcrpYbIK2ZX5MuEDeHLPyG6hadkLuwWUuZ3xRN2mRq_2kcLxjL5Ud942aglooqVpH5g7rl50vS",
 });
 
 // Create an istance of google drive
