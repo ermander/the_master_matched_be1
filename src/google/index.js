@@ -6,6 +6,7 @@ const router = express.Router();
 const CLIENT_ID = process.env.CLIENT_ID;
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
+const CLIENT_SECRET = process.env.CLIENT_SECRET
 
 // Creating the authentication object
 const oauth2Client = new google.auth.OAuth2(
