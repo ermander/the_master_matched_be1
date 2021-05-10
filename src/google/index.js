@@ -3,14 +3,9 @@ const fs = require("fs-extra");
 const express = require("express");
 const router = express.Router();
 
-const CLIENT_ID =
-  process.env.CLIENT_ID ||
-  "380825532247-ms7fb2sics98gidpja5mkolkoec9feor.apps.googleusercontent.com";
-const CLIENT_SECRET = process.env.CLIENT_SECRET || "NCxvcASUE08q3XKS8ZLx62XA";
+const CLIENT_ID = process.env.CLIENT_ID;
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
-const REFRESH_TOKEN =
-  process.env.REFRESH_TOKEN ||
-  "1//045X-6GF7CmNZCgYIARAAGAQSNwF-L9IrIevpGhMTLyGYXUidmkGlJ-Nnz-ykeBknFcLmSJwGvGFF_abPfsCOi5j4lCqIwyI9GPg";
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 
 // Creating the authentication object
 const oauth2Client = new google.auth.OAuth2(
