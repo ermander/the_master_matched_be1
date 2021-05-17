@@ -9,6 +9,7 @@ const login = require("./authentication/index")
 const cashbackBookmakers = require("./cashback_books")
 const odds = require("./odds/index")
 const googleOdds = require("./google/index")
+const betfair = require("./betfair/index")
 
 const app = express()
 
@@ -34,6 +35,9 @@ app.use("/users", login)
 
 // Cashbaks bookmakers
 app.use("/cashback-bookmakers", cashbackBookmakers)
+
+// Betfair 
+app.use("/betfair", betfair)
 
 // Preview of the current endpoints into the terminal 
 console.log(listOfEndpoint(app))
