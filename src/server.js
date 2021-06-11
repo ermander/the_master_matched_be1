@@ -10,6 +10,7 @@ const cashbackBookmakers = require("./cashback_books")
 const odds = require("./odds/index")
 const googleOdds = require("./google/index")
 const betfair = require("./betfair/index")
+const mybet21 = require("./mybet21/index")
 
 const app = express()
 
@@ -38,6 +39,9 @@ app.use("/cashback-bookmakers", cashbackBookmakers)
 
 // Betfair 
 app.use("/betfair", betfair)
+
+// MyBet21
+app.use("/mybet21", mybet21)
 
 // Preview of the current endpoints into the terminal 
 console.log(listOfEndpoint(app))
