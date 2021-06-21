@@ -48,11 +48,8 @@ router.get("/oddsmatcher", async(req, res) => {
         let oddsmatcherOdds = []
         console.log(odds)
 
-        oddsmatcherOdds = odds.filter( odd => parseFloat(odd.roi) <= 50)
-        oddsmatcherOdds = odds.filter( odd => parseFloat(odd.odd_one) <= 1.40)
-        oddsmatcherOdds = odds.filter( odd => parseFloat(odd.odd_two) <= 1.40)
 
-        res.status(200).send(oddsmatcherOdds)
+        res.status(200).send(odds)
     } catch (error) {
         console.log(error)
         res.status(404).send(error)
