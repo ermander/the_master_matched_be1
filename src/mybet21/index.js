@@ -46,10 +46,11 @@ router.get("/oddsmatcher", async(req, res) => {
         }).then((response) => response.data)
 
         let oddsmatcherOdds = []
-        console.log(odds)
+        oddsmatcherOdds = odds.filter(odd => odd.book_one === "betfair" || odd.book_two === "betfair")
+        console.log(oddsmatcherOdds)
 
 
-        res.status(200).send(odds)
+        res.status(200).send(oddsmatcherOdds)
     } catch (error) {
         console.log(error)
         res.status(404).send(error)
