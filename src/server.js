@@ -11,6 +11,7 @@ const odds = require("./odds/index")
 const googleOdds = require("./google/index")
 const betfair = require("./betfair/index")
 const mybet21 = require("./mybet21/index")
+const keepActive = require("./keep_active/index")
 
 const app = express()
 
@@ -25,6 +26,8 @@ const port = process.env.PORT || 3004
 
 app.use(express.json())
 
+// Keep Active
+app.use("/cronojob", keepActive)
 // Odds
 app.use("/odds", odds)
 
