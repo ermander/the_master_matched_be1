@@ -50,7 +50,7 @@ router.get("/oddsmatcher", async(req, res) => {
         console.log(oddsmatcherOdds)
 
 
-        res.status(200).send(oddsmatcherOdds)
+        res.status(200).send(odds)
     } catch (error) {
         console.log(error)
         res.status(404).send(error)
