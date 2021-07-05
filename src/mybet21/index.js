@@ -79,7 +79,7 @@ router.get("/history", async (req, res) => {
       })
       .then((response) => response.data);
 
-    history.map((odd) => {
+    history.map((odd) => { 
       // Deleting useless data
       delete odd.quota12
       delete odd.quota_1x
