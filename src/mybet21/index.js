@@ -39,18 +39,20 @@ router.get("/oddsmatcher", async (req, res) => {
     const fileID = oddsFile[0].id;
 
     // Get the odds infoes
-    const odds = await drive.files
+    let odds = await drive.files
       .get({
         fileId: fileID,
         mimeType: "application/json",
         alt: "media",
       })
       .then((response) => response.data);
-
+    
     let oddsmatcherOdds = [];
-    oddsmatcherOdds = odds.filter(
+    odds = odds.filter(
       (odd) => odd.book_one === "betfair" || odd.book_two === "betfair"
     );
+
+    odds = odds.filter( odd => parseFloat(odd.odd_one) > 0)
 
     res.status(200).send(odds);
   } catch (error) {
@@ -177,9 +179,7 @@ router.get("/history", async (req, res) => {
       odd["O3.5_t2"] = odd["o_3_5_t2"]
       delete odd["o_3_5_t2"]
     });
-
-    const prova = history.filter(odd => odd.univoca === "Fc ShkendijaNs Murasirplay")
-    res.status(200).send(prova);
+    res.status(200).send(history);
   } catch (error) {
     console.log(error);
     res.status(404).send(error);
