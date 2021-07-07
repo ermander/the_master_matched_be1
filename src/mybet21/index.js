@@ -63,6 +63,7 @@ router.get("/oddsmatcher", async (req, res) => {
 
 router.get("/history", async (req, res) => {
   try {
+    console.log("Entro")
     // Retrieve the folder
     const response = await drive.files.list({
       q: `"1y5m8t0H450NVJjacV2N6rumAC1L-T_9G" in parents`,
@@ -178,7 +179,48 @@ router.get("/history", async (req, res) => {
       delete odd["u_3_5_t2"]      
       odd["O3.5_t2"] = odd["o_3_5_t2"]
       delete odd["o_3_5_t2"]
+      odd["1"] = odd["1"][0]
+      odd["x"] = odd["x"][0]
+      odd["2"] = odd ["2"][0]
+      odd["goal"] = odd ["goal"][0]
+      odd["goal_t1"] = odd ["goal_t1"][0]
+      odd["nogoal_t1"] = odd ["nogoal_t1"][0]
+      odd["goal_t2"] = odd ["goal_t2"][0]
+      odd["nogoal_t2"] = odd ["nogoal_t2"][0]
+      odd["1_t1"] = odd ["1_t1"][0]
+      odd["x_t1"] = odd ["x_t1"][0]
+      odd["2_t1"] = odd ["2_t1"][0]
+      odd["1_t2"] = odd ["1_t2"][0]
+      odd["x_t2"] = odd ["x_t2"][0]
+      odd["2_t2"] = odd ["2_t2"][0]
+      odd["U0.5"] = odd ["U0.5"][0]
+      odd["O0.5"] = odd ["O0.5"][0]
+      odd["U1.5"] = odd ["U1.5"][0]
+      odd["O1.5"] = odd ["O1.5"][0]
+      odd["U2.5"] = odd ["U2.5"][0]
+      odd["O2.5"] = odd ["O2.5"][0]
+      odd["U3.5"] = odd ["U3.5"][0]
+      odd["O3.5"] = odd ["O3.5"][0]
+      odd["U0.5_t1"] = odd ["U0.5_t1"][0]
+      odd["O0.5_t1"] = odd ["O0.5_t1"][0]
+      odd["U1.5_t1"] = odd ["U1.5_t1"][0]
+      odd["O1.5_t1"] = odd ["O1.5_t1"][0]
+      odd["U2.5_t1"] = odd ["U2.5_t1"][0]
+      odd["O2.5_t1"] = odd ["O2.5_t1"][0]
+      odd["U3.5_t1"] = odd ["U3.5_t1"][0]
+      odd["O3.5_t1"] = odd ["O3.5_t1"][0]
+      odd["U0.5_t2"] = odd ["U0.5_t2"][0]
+      odd["O0.5_t2"] = odd ["O0.5_t2"][0]
+      odd["U1.5_t2"] = odd ["U1.5_t2"][0]
+      odd["O1.5_t2"] = odd ["O1.5_t2"][0]
+      odd["U2.5_t2"] = odd ["U2.5_t2"][0]
+      odd["O2.5_t2"] = odd ["O2.5_t2"][0]
+      odd["U3.5_t2"] = odd ["U3.5_t2"][0]
+      odd["O3.5_t2"] = odd ["O3.5_t2"][0]
+      odd["O3.5_t2"] = odd ["O3.5_t2"][0]
+
     });
+
     res.status(200).send(history);
   } catch (error) {
     console.log(error);
