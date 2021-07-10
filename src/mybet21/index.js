@@ -105,8 +105,8 @@ router.get("/history", async (req, res) => {
       delete odd.u_5_5
 
       // Changing keys names
-      odd["nogoal"] = odd["no goal"];
-      delete odd["no goal"];
+      odd["noGoal"] = odd["nogoal"];
+      delete odd["nogoal"];
       // 1X2
       odd["1"] = odd["quota_1"];
       delete odd["quota_1"];
@@ -183,6 +183,7 @@ router.get("/history", async (req, res) => {
       odd["x"] = odd["x"][0]
       odd["2"] = odd ["2"][0]
       odd["goal"] = odd ["goal"][0]
+      odd["noGoal"] = odd["noGoal"][0]
       odd["goal_t1"] = odd ["goal_t1"][0]
       odd["nogoal_t1"] = odd ["nogoal_t1"][0]
       odd["goal_t2"] = odd ["goal_t2"][0]
