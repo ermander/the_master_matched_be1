@@ -46,7 +46,8 @@ router.get("/oddsmatcher", async (req, res) => {
         alt: "media",
       })
       .then((response) => response.data);
-
+      
+    odds = odds.slice(0, 99)
     //console.log(odds)
     console.log(odds.length)
     res.status(200).send(odds);
