@@ -48,7 +48,7 @@ router.get("/oddsmatcher", async (req, res) => {
       .then((response) => response.data);
 
     //console.log(odds)
-
+    console.log(odds.length)
     res.status(200).send(odds);
   } catch (error) {
     console.log(error);
