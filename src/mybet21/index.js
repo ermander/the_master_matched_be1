@@ -47,6 +47,8 @@ router.get("/oddsmatcher", async (req, res) => {
       })
       .then((response) => response.data);
 
+    //console.log(odds)
+
     res.status(200).send(odds);
   } catch (error) {
     console.log(error);
@@ -222,3 +224,14 @@ router.get("/history", async (req, res) => {
 });
 // 1J34yAPp_IpiBcY8btpee1K-Do4pTUMgM
 module.exports = router;
+
+router.get("/prova", async(req, res) => {
+  try {
+    //console.log(req.body + " req.body")
+    Object.keys(req)
+    res.status(200).send("The server has received the filter params" + req.body)
+  } catch (error) {
+    console.log(error)
+    res.status(400).send(error)
+  }
+})
