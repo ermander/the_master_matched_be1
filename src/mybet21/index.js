@@ -46,11 +46,14 @@ router.get("/oddsmatcher", async (req, res) => {
         alt: "media",
       })
       .then((response) => response.data);
-      
-    odds = odds.slice(0, 99)
-    console.log(odds)
+
+    odds.sort((a, b) => {
+      return b.roi - a.roi;
+    });
+    odds = odds.slice(0, 99);
+    console.log(odds);
     //console.log(odds)
-    console.log(odds.length)
+    console.log(odds.length);
     res.status(200).send(odds);
   } catch (error) {
     console.log(error);
@@ -227,13 +230,14 @@ router.get("/history", async (req, res) => {
 // 1J34yAPp_IpiBcY8btpee1K-Do4pTUMgM
 module.exports = router;
 
-router.get("/prova", async(req, res) => {
+router.post("/prova", async (req, res) => {
   try {
     //console.log(req.body + " req.body")
-    Object.keys(req)
-    res.status(200).send("The server has received the filter params" + req.body)
+    console.log(req.body);
+    console.log("Here!");
+    res.status(200).send(req.body);
   } catch (error) {
-    console.log(error)
-    res.status(400).send(error)
+    console.log(error);
+    res.status(400).send(error);
   }
-})
+});
