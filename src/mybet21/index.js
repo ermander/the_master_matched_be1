@@ -27,6 +27,7 @@ const drive = google.drive({
 
 // Oddsmatcher Odds
 router.get("/oddsmatcher", async (req, res) => {
+  console.log("Fetching odds");
   try {
     // Retrieve the folder
     const response = await drive.files.list({
@@ -50,7 +51,12 @@ router.get("/oddsmatcher", async (req, res) => {
     odds.sort((a, b) => {
       return b.roi - a.roi;
     });
-    odds = odds.slice(0, 99);
+
+    // Deleting odds without data, nation or tournament
+    odds = odds.filter((odd) => odd.start_date !== undefined);
+    odds = odds.filter((odd) => odd.nation !== undefined);
+    odds = odds.filter((odd) => odd.tournament !== undefined);
+    odds = odds.slice(0, 199);
     console.log(odds);
     //console.log(odds)
     console.log(odds.length);
@@ -227,17 +233,54 @@ router.get("/history", async (req, res) => {
     res.status(404).send(error);
   }
 });
-// 1J34yAPp_IpiBcY8btpee1K-Do4pTUMgM
-module.exports = router;
 
 router.post("/prova", async (req, res) => {
   try {
-    //console.log(req.body + " req.body")
-    console.log(req.body);
+    const options = req.body;
+    console.log(options);
     console.log("Here!");
-    res.status(200).send(req.body);
+    // Retrieve the folder
+    const response = await drive.files.list({
+      q: `"1y5m8t0H450NVJjacV2N6rumAC1L-T_9G" in parents`,
+    });
+
+    const oddsFile = response.data.files.filter(
+      (oddFile) => oddFile.name === "dutcherOdds1.json"
+    );
+    const fileID = oddsFile[0].id;
+
+    // Get the odds infoes
+    let odds = await drive.files
+      .get({
+        fileId: fileID,
+        mimeType: "application/json",
+        alt: "media",
+      })
+      .then((response) => response.data);
+
+    odds.sort((a, b) => {
+      return b.roi - a.roi;
+    });
+
+    // Deleting odds without data, nation or tournament
+    odds = odds.filter((odd) => odd.start_date !== undefined);
+    odds = odds.filter((odd) => odd.nation !== undefined);
+    odds = odds.filter((odd) => odd.tournament !== undefined);
+    // Filtering by first bookmaker
+    if (options.firstBookmaker !== "Bookmakers") {
+      if (options.firstBookmaker === "MacaoWin") {
+        odds = odds.filter((odd) => odd.book_one === "macao");
+      }
+      if (options.firstBookmaker === "SirPlay") {
+        odds = odds.filter((odd) => odd.book_one === "sirplay");
+      }
+    }
+    odds = odds.slice(0, 199);
+    res.status(200).send(odds);
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
   }
 });
+
+module.exports = router;
