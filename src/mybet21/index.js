@@ -266,10 +266,22 @@ router.post("/prova", async (req, res) => {
     odds = odds.filter((odd) => odd.start_date !== undefined);
     odds = odds.filter((odd) => odd.nation !== undefined);
     odds = odds.filter((odd) => odd.tournament !== undefined);
+    // Filtering by min and max odd
+    if (options.minOdd.minOdd) {
+      odds = odds.filter(
+        (odd) => parseFloat(odd.odd_one) >= parseFloat(options.minOdd.minOdd)
+      );
+    }
+    if (options.maxOdd.maxOdd) {
+      odds = odds.filter(
+        (odd) => parseFloat(odd.odd_one) <= parseFloat(options.maxOdd.maxOdd)
+      );
+    }
+    console.log(odds.length);
     // Filtering by first bookmaker
     if (options.firstBookmaker !== "Bookmakers") {
       if (options.firstBookmaker === "MacaoWin") {
-        odds = odds.filter((odd) => odd.book_one === "macao");
+        odds = odds.filter((odd) => odd.book_one === "macao");x
       }
       if (options.firstBookmaker === "SirPlay") {
         odds = odds.filter((odd) => odd.book_one === "sirplay");
