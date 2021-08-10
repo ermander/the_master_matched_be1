@@ -42,6 +42,15 @@ const fetchOdds = async () => {
         alt: "media",
       })
       .then((response) => response.data);
+    odds = odds.map((odd) => {
+      let day = odd.start_date.split("/")[0]
+      let month = odd.start_date.split("/")[1]
+      let year = odd.start_date.split("/")[2]
+      return {
+        ...odd,
+        start_date: `${day}-${month}-${year}, ${odd.start_time}`
+      }
+    })
     return odds;
   } catch (error) {
     console.log(error);
