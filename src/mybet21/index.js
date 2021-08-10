@@ -163,6 +163,7 @@ router.post("/prova", async (req, res) => {
     filteredOdds = filteredOdds.filter((odd) => {
       odd.match_starts.valueOf() <= options.initialDate.valueOf();
     });
+    
 
     // Filtering by first bookmaker
     if (options.firstBookmaker !== "Bookmakers") {
