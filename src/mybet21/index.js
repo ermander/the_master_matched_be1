@@ -158,10 +158,10 @@ router.post("/prova", async (req, res) => {
     // Filtering by initial and final date
     // Filtering odds that starts from initial date
     filteredOdds = filteredOdds.filter((odd) => {
-      odd.match_starts.valueOf() <= options.initialDate.valueOf();
+      odd.match_starts.valueOf() >= options.initialDate.valueOf();
     });
     filteredOdds = filteredOdds.filter((odd) => {
-      odd.match_starts.valueOf() >= options.initialDate.valueOf();
+      odd.match_starts.valueOf() <= options.initialDate.valueOf();
     });
 
     // Filtering by first bookmaker
