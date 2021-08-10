@@ -4,43 +4,17 @@ const router = express.Router();
 // Functions
 const { fetchOdds } = require("./functions/fetchOdds");
 const { fetchHistory } = require("./functions/fetchHistory");
-const { checkComplementary } = require("./functions/checkComplementary");
+const { setComplementaryData } = require("./functions/setComplementaryData");
 
 // Oddsmatcher Odds
 router.get("/oddsmatcher", async (req, res) => {
   try {
+    // Fetching odds data and odds history data
     let odds = await fetchOdds();
     let history = await fetchHistory();
 
-    odds = odds.map((odd) => {
-      const rawInfo = history.filter(
-        (info) => info.univoca === `${odd.home}${odd.away}${odd.book_one}`
-      );
-
-      if (rawInfo !== undefined) {
-        
-        let data = rawInfo[0][odd.odd_one_type];
-        data === undefined ? (data = "Non Disponibile") : (data = data);
-        let complementaryData = checkComplementary(
-          odd.odd_one_type,
-          rawInfo[0],
-          odds,
-          odd.home,
-          odd.away,
-          odd.book_one
-        );
-        delete odd.historyInfo;
-        return {
-          ...odd,
-          complementaryData: complementaryData,
-        };
-      } else {
-        return {
-          ...odd,
-          complementaryData: undefined,
-        };
-      }
-    });
+    // Adding adding history info to the odds
+    odds = setComplementaryData(odds, history);
 
     // Deleting odds without data, nation or tournament
     odds = odds.filter((odd) => odd.start_date !== undefined);
@@ -66,7 +40,6 @@ router.get("/oddsmatcher", async (req, res) => {
       return b.roi - a.roi;
     });
     odds = odds.slice(0, 500);
-    console.log(odds);
     console.log(odds.length);
     res.status(200).send(odds);
   } catch (error) {
@@ -79,24 +52,12 @@ router.post("/prova", async (req, res) => {
   try {
     const options = req.body;
     console.log(options);
-    // Retrieve the folder
-    const response = await drive.files.list({
-      q: `"1y5m8t0H450NVJjacV2N6rumAC1L-T_9G" in parents`,
-    });
+    // Fetching odds data and odds history data
+    let odds = await fetchOdds();
+    let history = await fetchHistory();
 
-    const oddsFile = response.data.files.filter(
-      (oddFile) => oddFile.name === "dutcherOdds1.json"
-    );
-    const fileID = oddsFile[0].id;
-
-    // Get the odds infoes
-    let odds = await drive.files
-      .get({
-        fileId: fileID,
-        mimeType: "application/json",
-        alt: "media",
-      })
-      .then((response) => response.data);
+    // Adding adding history info to the odds
+    odds = setComplementaryData(odds, history);
 
     // Deleting odds without data, nation or tournament
     odds = odds.filter((odd) => odd.start_date !== undefined);
