@@ -43,14 +43,23 @@ const fetchOdds = async () => {
       })
       .then((response) => response.data);
     odds = odds.map((odd) => {
-      let day = odd.start_date.split("/")[0]
-      let month = odd.start_date.split("/")[1]
-      let year = odd.start_date.split("/")[2]
-      return {
-        ...odd,
-        start_date: `${day}-${month}-${year}, ${odd.start_time}`
+      if ((odd.start_date && odd.start_time) !== undefined) {
+        let day = odd.start_date.split("/")[0];
+        let month = odd.start_date.split("/")[1];
+        let year = odd.start_date.split("/")[2];
+        let time = odd.start_time;
+        if (parseInt(day) <= 9) day = `0${day}`;
+        if (parseInt(month) <= 9) month = `0${month}`;
+
+        delete odd.start_time;
+        return {
+          ...odd,
+          match_starts: new Date(`${year}-${month}-${day}, ${time}`),
+        };
+      } else {
+        return { ...odd };
       }
-    })
+    });
     return odds;
   } catch (error) {
     console.log(error);
