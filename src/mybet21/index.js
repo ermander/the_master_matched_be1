@@ -18,17 +18,18 @@ router.get("/oddsmatcher", async (req, res) => {
       );
 
       if (rawInfo !== undefined) {
-        odd.historyInfo = rawInfo[0];
-        let data = odd.historyInfo[odd.odd_one_type];
+        
+        let data = rawInfo[0][odd.odd_one_type];
         data === undefined ? (data = "Non Disponibile") : (data = data);
         let complementaryData = checkComplementary(
           odd.odd_one_type,
-          odd.historyInfo,
+          rawInfo[0],
           odds,
           odd.home,
           odd.away,
           odd.book_one
         );
+        delete odd.historyInfo;
         return {
           ...odd,
           complementaryData: complementaryData,
