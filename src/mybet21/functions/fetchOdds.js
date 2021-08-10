@@ -51,7 +51,6 @@ const fetchOdds = async () => {
         if (parseInt(day) <= 9) day = `0${day}`;
         if (parseInt(month) <= 9) month = `0${month}`;
 
-        delete odd.start_time;
         return {
           ...odd,
           match_starts: new Date(`${year}-${month}-${day}, ${time}`),
