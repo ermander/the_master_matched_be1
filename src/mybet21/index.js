@@ -154,11 +154,16 @@ router.post("/prova", async (req, res) => {
         (odd) => parseFloat(odd.odd_one) <= options.maxOdd
       );
     }
+
     // Filtering by initial and final date
     // Filtering odds that starts from initial date
     filteredOdds = filteredOdds.filter((odd) => {
       odd.match_starts.valueOf() <= options.initialDate.valueOf();
     });
+    filteredOdds = filteredOdds.filter((odd) => {
+      odd.match_starts.valueOf() >= options.initialDate.valueOf();
+    });
+
     // Filtering by first bookmaker
     if (options.firstBookmaker !== "Bookmakers") {
       if (options.firstBookmaker === "MacaoWin") {
