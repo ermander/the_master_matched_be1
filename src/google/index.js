@@ -76,7 +76,6 @@ router.get("/trimatcher-odds", async (req, res) => {
       })
       .then((response) => response.data);
     odds = odds.map((odd) => {
-      console.log(odd);
       (odd.book_one = odd.book_one.toLowerCase()),
         (odd.book_two = odd.book_two.toLowerCase()),
         (odd.book_three = odd.book_three.toLowerCase());
