@@ -68,7 +68,7 @@ router.get("/trimatcher-odds", async (req, res) => {
     const fileID = rawOdds[0].id;
 
     // Get the odds infoes
-    const odds = await drive.files
+    let odds = await drive.files
       .get({
         fileId: fileID,
         mimeType: "application/json",
