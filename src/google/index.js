@@ -6,7 +6,7 @@ const router = express.Router();
 const CLIENT_ID = process.env.CLIENT_ID;
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
-const CLIENT_SECRET = process.env.CLIENT_SECRET
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 // Creating the authentication object
 const oauth2Client = new google.auth.OAuth2(
@@ -76,11 +76,14 @@ router.get("/trimatcher-odds", async (req, res) => {
       })
       .then((response) => response.data);
     odds = odds.map((odd) => {
-      console.log(odd)
-      odd.book_one = odd.book_one.toLowerCase()
-      odd.book_two = odd.book_two.toLowerCase()
-      odd.book_three = odd.book_three.toLowerCase()
-    })
+      console.log(odd);
+      (odd.book_one = odd.book_one.toLowerCase()),
+        (odd.book_two = odd.book_two.toLowerCase()),
+        (odd.book_three = odd.book_three.toLowerCase());
+      return {
+        ...odd,
+      };
+    });
     res.status(200).send(odds);
   } catch (error) {
     console.log(error);
